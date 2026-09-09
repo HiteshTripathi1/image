@@ -1,0 +1,37 @@
+<svg width="680" height="324" viewBox="0 0 680 324" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect width="680" height="324" fill="#ffffff"/>
+  <defs>
+    <marker id="arrowD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#444441" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Outer container -->
+  <rect x="40" y="40" width="600" height="130" rx="20" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="340" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#444441">Docker (runc) — no interception layer</text>
+
+  <!-- Projects -->
+  <rect x="70" y="86" width="150" height="56" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="145" y="106" text-anchor="middle" font-size="14" font-weight="600" fill="#712B13">Project A</text>
+  <text x="145" y="128" text-anchor="middle" font-size="12" fill="#993C1D">runc</text>
+
+  <rect x="265" y="86" width="150" height="56" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="340" y="106" text-anchor="middle" font-size="14" font-weight="600" fill="#712B13">Project B</text>
+  <text x="340" y="128" text-anchor="middle" font-size="12" fill="#993C1D">runc</text>
+
+  <rect x="460" y="86" width="150" height="56" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="535" y="106" text-anchor="middle" font-size="14" font-weight="600" fill="#712B13">Project C</text>
+  <text x="535" y="128" text-anchor="middle" font-size="12" fill="#993C1D">runc</text>
+
+  <!-- Converging arrows -->
+  <line x1="145" y1="142" x2="300" y2="200" stroke="#444441" stroke-width="1.5" marker-end="url(#arrowD)"/>
+  <line x1="340" y1="142" x2="340" y2="200" stroke="#444441" stroke-width="1.5" marker-end="url(#arrowD)"/>
+  <line x1="535" y1="142" x2="380" y2="200" stroke="#444441" stroke-width="1.5" marker-end="url(#arrowD)"/>
+
+  <!-- Host kernel -->
+  <rect x="220" y="204" width="240" height="56" rx="10" fill="#FCEBEB" stroke="#A32D2D" stroke-width="1"/>
+  <text x="340" y="224" text-anchor="middle" font-size="14" font-weight="600" fill="#791F1F">Host kernel — real</text>
+  <text x="340" y="246" text-anchor="middle" font-size="12" fill="#A32D2D">shared by all three</text>
+
+  <text x="340" y="290" text-anchor="middle" font-size="12" fill="#5F5E5A">one bug here reaches every project on the node</text>
+</svg>
