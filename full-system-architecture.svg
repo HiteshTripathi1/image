@@ -1,0 +1,163 @@
+<svg width="1560" height="1590" viewBox="0 0 1560 1590" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif" role="img" aria-label="Complete gVisor sandbox system: AWS VPC containing a Hub Cluster (Auto Mode on, runs backend services) and a Sandbox Cluster (Auto Mode off, 100% gVisor) linked by Transit Gateway; the Sandbox Cluster shows Karpenter provisioning EC2 nodes, each node running VPC CNI, the Network Policy Agent and CoreDNS, holding many Project Pods, one of which is zoomed in to show the app wrapped by a gVisor Sentry and gofer before the shielded host kernel.">
+  <rect width="1560" height="1590" fill="#ffffff"/>
+  <defs>
+    <marker id="fsArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#444441" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Internet -->
+  <rect x="680" y="20" width="200" height="46" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="780" y="48" text-anchor="middle" font-size="13" font-weight="600" fill="#444441">Internet / Users</text>
+
+  <line x1="745" y1="66" x2="205" y2="188" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <text x="440" y="112" text-anchor="middle" font-size="10.5" fill="#5F5E5A">main app traffic</text>
+
+  <line x1="815" y1="66" x2="1220" y2="248" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <text x="1080" y="140" text-anchor="middle" font-size="10.5" fill="#5F5E5A">preview / published app traffic</text>
+
+  <!-- VPC boundary -->
+  <rect x="40" y="140" width="1480" height="1370" rx="24" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="8 6"/>
+  <text x="64" y="170" font-size="13" font-weight="600" fill="#5F5E5A">AWS VPC — ap-south-1</text>
+
+  <!-- ============ HUB CLUSTER ============ -->
+  <rect x="70" y="188" width="460" height="290" rx="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+  <text x="300" y="216" text-anchor="middle" font-size="16" font-weight="700" fill="#444441">Hub Cluster</text>
+  <text x="300" y="236" text-anchor="middle" font-size="11.5" fill="#5F5E5A">EKS Auto Mode ON — AWS handles scaling + patching</text>
+
+  <rect x="140" y="252" width="320" height="38" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="300" y="276" text-anchor="middle" font-size="11" fill="#444441">AWS Load Balancer Controller (ALB)</text>
+
+  <rect x="90" y="308" width="130" height="50" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="155" y="337" text-anchor="middle" font-size="11.5" fill="#444441">api-gateway</text>
+  <rect x="230" y="308" width="130" height="50" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="295" y="337" text-anchor="middle" font-size="11.5" fill="#444441">backend</text>
+  <rect x="370" y="308" width="130" height="50" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="435" y="330" text-anchor="middle" font-size="11.5" fill="#444441">sandbox-</text>
+  <text x="435" y="344" text-anchor="middle" font-size="11.5" fill="#444441">service</text>
+
+  <rect x="160" y="372" width="130" height="50" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="225" y="401" text-anchor="middle" font-size="11.5" fill="#444441">frontend</text>
+  <rect x="300" y="372" width="130" height="50" rx="8" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="365" y="401" text-anchor="middle" font-size="11.5" fill="#444441">AI service</text>
+
+  <text x="300" y="450" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5F5E5A">none of these run untrusted code</text>
+
+  <!-- Transit Gateway (routed above both clusters — plenty of clear space, one-way sandbox → hub) -->
+  <polyline points="1025,188 1025,155 300,155 300,188" fill="none" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <text x="662" y="172" text-anchor="middle" font-size="11" font-weight="600" fill="#444441">Transit Gateway</text>
+  <text x="662" y="186" text-anchor="middle" font-size="9" fill="#5F5E5A">one-way: sandbox → hub only</text>
+
+  <!-- ============ SANDBOX CLUSTER ============ -->
+  <rect x="560" y="188" width="930" height="1290" rx="20" fill="#F5FBF9" stroke="#0F6E56" stroke-width="1.4"/>
+  <text x="1025" y="216" text-anchor="middle" font-size="16" font-weight="700" fill="#085041">Sandbox Cluster</text>
+  <text x="1025" y="236" text-anchor="middle" font-size="11.5" fill="#0F6E56">EKS Auto Mode OFF — dedicated, 100% gVisor</text>
+
+  <!-- Karpenter -->
+  <rect x="870" y="254" width="310" height="52" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+  <text x="1025" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">Karpenter</text>
+  <text x="1025" y="296" text-anchor="middle" font-size="10" fill="#0F6E56">creates &amp; scales EC2 nodes on demand</text>
+
+  <line x1="1025" y1="306" x2="1025" y2="326" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <text x="1070" y="320" text-anchor="start" font-size="9.5" fill="#5F5E5A">provisions</text>
+
+  <!-- Node -->
+  <rect x="600" y="330" width="850" height="990" rx="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1.2"/>
+  <text x="1025" y="356" text-anchor="middle" font-size="13.5" font-weight="700" fill="#444441">EC2 Node — e.g. c7g.4xlarge (16 vCPU / 32 GiB)</text>
+
+  <!-- Node daemon badges -->
+  <rect x="630" y="372" width="230" height="32" rx="16" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="745" y="393" text-anchor="middle" font-size="10" fill="#444441">VPC CNI — pod networking</text>
+  <rect x="880" y="372" width="280" height="32" rx="16" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="1020" y="393" text-anchor="middle" font-size="10" fill="#444441">Network Policy Agent — isolation</text>
+  <rect x="1180" y="372" width="260" height="32" rx="16" fill="#ffffff" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="1310" y="393" text-anchor="middle" font-size="9.5" fill="#444441">CoreDNS — replaces Auto Mode's DNS here</text>
+
+  <!-- Project pod grid -->
+  <rect x="630" y="424" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="715" y="460" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="715" y="480" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="820" y="424" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="905" y="460" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="905" y="480" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="1010" y="424" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="1095" y="460" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="1095" y="480" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="1200" y="424" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="1285" y="460" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="1285" y="480" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="630" y="524" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="715" y="560" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="715" y="580" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="820" y="524" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="905" y="560" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="905" y="580" text-anchor="middle" font-size="9.5" fill="#993C1D">zoomed in ↓</text>
+
+  <rect x="1010" y="524" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="1095" y="560" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="1095" y="580" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <rect x="1200" y="524" width="170" height="88" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+  <text x="1285" y="560" text-anchor="middle" font-size="11.5" font-weight="700" fill="#712B13">Project Pod</text>
+  <text x="1285" y="580" text-anchor="middle" font-size="9.5" fill="#993C1D">gVisor sandbox</text>
+
+  <text x="1025" y="638" text-anchor="middle" font-size="11" font-style="italic" fill="#5F5E5A">… up to 19 pods on this one node (recommended config, §3)</text>
+
+  <!-- Leader line to exploded view -->
+  <line x1="905" y1="612" x2="905" y2="672" stroke="#993C1D" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Exploded pod view -->
+  <rect x="630" y="672" width="790" height="410" rx="16" fill="#ffffff" stroke="#5F5E5A" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="1025" y="700" text-anchor="middle" font-size="13.5" font-weight="700" fill="#444441">Inside one Project Pod — zoomed in</text>
+
+  <rect x="800" y="716" width="450" height="86" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="1025" y="742" text-anchor="middle" font-size="13" font-weight="700" fill="#444441">Your project</text>
+  <text x="1025" y="762" text-anchor="middle" font-size="10" fill="#5F5E5A">AI-generated app code + rust-vm-agent</text>
+  <text x="1025" y="780" text-anchor="middle" font-size="9.5" fill="#5F5E5A">(exec / files / procs HTTP API)</text>
+
+  <line x1="925" y1="802" x2="890" y2="828" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <line x1="1125" y1="802" x2="1180" y2="828" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+
+  <rect x="750" y="828" width="280" height="72" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+  <text x="890" y="856" text-anchor="middle" font-size="12.5" font-weight="700" fill="#085041">gVisor Sentry</text>
+  <text x="890" y="874" text-anchor="middle" font-size="9.5" fill="#0F6E56">userspace kernel (Go) —</text>
+  <text x="890" y="888" text-anchor="middle" font-size="9.5" fill="#0F6E56">intercepts every syscall</text>
+
+  <rect x="1050" y="828" width="280" height="72" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+  <text x="1190" y="856" text-anchor="middle" font-size="12.5" font-weight="700" fill="#085041">gofer</text>
+  <text x="1190" y="876" text-anchor="middle" font-size="9.5" fill="#0F6E56">filesystem proxy</text>
+
+  <line x1="890" y1="900" x2="1000" y2="944" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+  <line x1="1190" y1="900" x2="1080" y2="944" stroke="#444441" stroke-width="1.5" marker-end="url(#fsArrow)"/>
+
+  <rect x="850" y="948" width="350" height="66" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="1025" y="972" text-anchor="middle" font-size="12" font-weight="700" fill="#444441">Node's real Linux kernel</text>
+  <text x="1025" y="990" text-anchor="middle" font-size="9.5" fill="#5F5E5A">shielded — only filtered syscalls ever arrive</text>
+
+  <text x="1025" y="1050" text-anchor="middle" font-size="10" font-style="italic" fill="#5F5E5A">no line connects one pod's Sentry to another's — a bug here stops at this one pod</text>
+
+  <!-- Envoy -->
+  <rect x="630" y="1100" width="790" height="70" rx="12" fill="#ffffff" stroke="#0F6E56" stroke-width="1.4" stroke-dasharray="6 5"/>
+  <text x="1025" y="1128" text-anchor="middle" font-size="13" font-weight="700" fill="#0F6E56">Envoy — planned, replaces nginx</text>
+  <text x="1025" y="1148" text-anchor="middle" font-size="10" fill="#5F5E5A">nginx is today's real router — Envoy takes over once per-sandbox routing is needed</text>
+
+  <!-- AWS EBS CSI note -->
+  <rect x="630" y="1188" width="790" height="52" rx="10" fill="#ffffff" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="1025" y="1210" text-anchor="middle" font-size="11" fill="#444441">Amazon EBS CSI driver — conditional</text>
+  <text x="1025" y="1226" text-anchor="middle" font-size="9.5" fill="#5F5E5A">only if a sandbox pod needs persistent storage</text>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="220" y="1540" width="18" height="18" rx="3" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="246" y="1554" font-size="10.5" fill="#444441">gVisor — the decision</text>
+
+  <rect x="620" y="1540" width="18" height="18" rx="3" fill="#F1EFE8" stroke="#5F5E5A"/>
+  <text x="646" y="1554" font-size="10.5" fill="#444441">AWS-managed component</text>
+
+  <rect x="1020" y="1540" width="18" height="18" rx="3" fill="#ffffff" stroke="#0F6E56" stroke-dasharray="3 3"/>
+  <text x="1046" y="1554" font-size="10.5" fill="#444441">Planned, not built yet</text>
+</svg>
